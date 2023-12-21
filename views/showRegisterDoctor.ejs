@@ -8,6 +8,9 @@
 <body>
     <div>
         <h2>Welcome to ConsulDOc</h2>
+        <% error?.forEach(el => { %>
+         <h4 style="color: red;"><%= el %></h4>
+        <% }) %>
         <form action="/register/doctor" method="post">
             <label>Username</label> <br>
             <input type="text" name="username"> <br> <br>

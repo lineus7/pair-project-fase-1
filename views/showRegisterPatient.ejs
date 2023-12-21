@@ -6,6 +6,9 @@
     <title>Registration Patient</title>
 </head>
 <body>
+    <% error?.forEach(el => { %>
+        <h4 style="color: red;"> <%= el %></h4>
+    <% }) %>
     <div>
         <form action="/register/patient" method="post">
             <label>Username</label> <br>

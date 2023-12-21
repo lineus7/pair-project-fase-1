@@ -17,6 +17,9 @@
             <tr>
                 <td><%= el.from %>      :</td>
                 <td><%= el.text %></td>
+                <% if (el.from === "Doctor") { %>
+                    <td><a href="/doctor/delete/<%= patient.id %>/<%= el.id %>"><button>X</button></a></td>
+                <% } %>
             </tr>
             <% }) %>
         </table>

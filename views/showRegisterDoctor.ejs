@@ -3,36 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dctor registration</title>
+    <title>Doctor registration</title>
 </head>
-<body>
-    <div>
-        <h2>Welcome to ConsulDOc</h2>
+<body style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <a href="/login"><button>Back To Login</button></a>
+        <h2>Welcome to ConsulDoc</h2>
         <% error?.forEach(el => { %>
          <h4 style="color: red;"><%= el %></h4>
         <% }) %>
-        <form action="/register/doctor" method="post">
-            <label>Username</label> <br>
-            <input type="text" name="username"> <br> <br>
-            <label>Password</label> <br>
-            <input type="password" name="password"> <br> <br>
-            <label>Full Name</label> <br>
-            <input type="text" name="name"> <br> <br>
-            <label>SIP (Surat Izin Praktik)</label> <br>
-            <input type="text" name="sip"> <br> <br>
-            <label>Specialist</label> <br>
-            <input type="text" name="specialist"> <br> <br>
-            <label>Hospital</label> <br>
-            <input type="text" name="hospital"> <br> <br>
-            <label>Experience</label> <br>
-            <input type="number" min="0" name="exp"> <br> <br>
-            <label>Price</label> <br>
-            <input type="number" min="0" name="price"> <br> <br>
-            <label>Email</label> <br>
-            <input type="text" name="email"><br> <br>
-            <input type="submit" value="register"> 
+        <form action="/register/doctor" method="post" style="display: flex; flex-direction: column; width: 300px;">
+            <label>Username</label>
+            <input type="text" name="username"> 
+            <label>Password</label>
+            <input type="password" name="password"> 
+            <label>Full Name</label>
+            <input type="text" name="name"> 
+            <label>SIP (Surat Izin Praktik)</label>
+            <input type="text" name="sip"> 
+            <label>Specialist</label>
+            <input type="text" name="specialist"> 
+            <label>Hospital</label>
+            <input type="text" name="hospital"> 
+            <label>Experience</label>
+            <input type="number" min="0" name="exp"> 
+            <label>Price</label>
+            <input type="number" min="0" name="price"> 
+            <label>Email</label>
+            <input type="text" name="email">
+            <br>
+            <input type="submit" value="Register"> 
         </form>
-    </div>
 
     
 </body>

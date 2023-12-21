@@ -1,10 +1,22 @@
 const { Op } = require("sequelize")
 const { User, Doctor, Patient, Chat } = require(`../models`)
+const rupiah = require("../helper/formatRupiah")
 class PatientController {
     static async showListDoctor(req,res){
         try {
-            let data = await Doctor.findAll()
-            res.render(`listDoctor`,{data})
+            let patient = await Patient.findByPk(req.session.user.PatientId)
+            let data = await Doctor.findAll({order:[[`id`,`ASC`]]})
+            // console.log(data);
+            res.render(`listDoctor`,{data,patient,rupiah})
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async logout(req,res){
+        try {
+            delete req.session.user
+            res.redirect(`/login`)
         } catch (error) {
             res.send(error)
         }
@@ -12,8 +24,17 @@ class PatientController {
 
     static async registerDoctorToPatient(req,res){
         try {
-            const {DoctorId} = req.body
-            await Patient.update({DoctorId},{where : {PatientId:req.session.PatientId}})
+            // console.log(req.params.DoctorId,req.session.user);
+            await Patient.update({DoctorId:req.params.DoctorId,status:"Waiting"},{where : {id:req.session.user.PatientId}})
+            res.redirect(`/patient`)
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async cancelConsultation(req,res){
+        try {
+            await Patient.update({DoctorId:null,status:"Pending"}, {where:{id:req.session.user.PatientId}})
             res.redirect(`/patient`)
         } catch (error) {
             res.send(error)
@@ -24,20 +45,20 @@ class PatientController {
         try {
             let doctor = await Doctor.findByPk(req.params.DoctorId)
             let data = await Chat.findAll({
-                where:{[Op.and]: [{ DoctorId: req.params.DoctorId }, { UserId: req.session.user.PatientId }]},
+                where:{[Op.and]: [{ DoctorId: req.params.DoctorId }, { PatientId: req.session.user.PatientId }]},
                 order: [[`createdAt`,`ASC`]]
             })
-            res.render(`chat`,{data,doctor})
+            res.render(`chatFromPatient`,{data,doctor})
         } catch (error) {
-            res.render
+            res.send(error)
         }
     }
 
     static async addChatFromPatient(req,res){
         try {
             const {text} = req.body
-            await Chat.create({text,DoctorId:req.params.DoctorId, PatientId: req.session.user.PatientId})
-            res.redirect(`./patient/${req.params.DoctorId}/chat`)
+            await Chat.create({text,DoctorId:req.params.DoctorId, PatientId: req.session.user.PatientId, from:`Patient`})
+            res.redirect(`/patient/${req.params.DoctorId}/chat`)
         } catch (error) {
             res.send(error)
         }

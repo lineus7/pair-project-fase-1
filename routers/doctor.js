@@ -4,7 +4,7 @@ const router = express.Router()
 
 // middleware that is specific to this router
 router.use((req, res, next) => {
-  if (!req.session.user.role !== "Doctor"){
+  if (!req.session.user||req.session.user.role !== "Doctor"){
     res.redirect(`/login?error=Please Login First`)
   } else {
     next()
@@ -12,11 +12,12 @@ router.use((req, res, next) => {
 })
 // define the home page route
 router.get('/', DoctorController.showListPatient)
+router.get(`/logout`, DoctorController.logout)
 router.get('/:PatientId/cancel', DoctorController.cancelPatient)
 router.get('/:PatientId/accept', DoctorController.acceptPatient)
 router.get(`/:PatientId/chat`, DoctorController.showChatFromDoctor)
 router.post(`/:PatientId/chat`, DoctorController.addChatFromDoctor)
-router.get(`/:PatientId/end`, DoctorController.endChat) 
+router.get(`/:PatientId/end`, DoctorController.endChat)
 
 
 

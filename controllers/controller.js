@@ -1,5 +1,11 @@
+
 const { User, Doctor } = require(`../models`)
+const bcrypt = require('bcryptjs');
 class Controller {
+
+    static showHome(req, res) {
+        res.render(`home`)
+    }
 
     static showRegisterDoctor(req, res) {
         try {
@@ -45,9 +51,9 @@ class Controller {
             const { username, password } = req.body
             // let data = await User.create({ username, password, role: `Patient` })
 
+
             const { name, gender, age, email } = req.body
-            console.log(name, gender, age, email, username, password);
-            // await Doctor.create({ name, gender, age, email, status: `Pending` })
+            await Doctor.create({ name, gender, age, UserId: data.id, email, status: `Pending` })
 
             res.redirect(`/login`)
         } catch (error) {
@@ -59,6 +65,36 @@ class Controller {
             }
         }
     }
+
+    static async showLogin(req, res) {
+        try {
+            res.render(`showLogin`)
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async login(req, res) {
+        try {
+            const { username, password } = req.body
+            let data = await User.findOne({ where: username })
+            if (data) {
+                const isValidPassword = bcrypt.compareSync(password)
+                if (isValidPassword) {
+                    req.session.user = {
+                        id: data.id,
+                        role: data.role
+                    }
+                    if (data.role === "Patient") res.redirect(`/patient`)
+                    if (data.role === "Doctor") res.redirect(`/doctor`)
+                }
+            }
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+
 
 }
 

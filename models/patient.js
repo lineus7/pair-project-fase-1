@@ -64,7 +64,13 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         notNull: { msg: `Email cannot be empty` },
         notEmpty: { msg: `Email cannot be empty` },
-        isEmail : {msg: `Must be Email Format`}
+        isEmail : {msg: `Must be Email Format`},
+        async isUnique(value) {
+          let data = await Patient.findOne({where:{email:value}})
+          if (data) {
+            throw new Error(`Email sudah terdaftar`);
+          }
+        }
       }
     }
   }, {

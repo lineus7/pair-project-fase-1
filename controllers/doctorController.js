@@ -1,6 +1,7 @@
 const { Op } = require("sequelize")
 const { User, Doctor, Patient ,Chat,Medicine, PatientMedicine} = require(`../models`);
 const rupiah = require("../helper/formatRupiah");
+const pdfkit = require("../helper/pdfkit");
 
 class DoctorController {
     static async showListPatient(req,res){
@@ -9,6 +10,41 @@ class DoctorController {
             let data = await Patient.findAll({where:{DoctorId:req.session.user.DoctorId}})
             console.log(data);
             res.render(`listPatient`,{data})
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async pdfPatient(req,res){
+        try {
+            let patient = await Patient.findAll({include:Medicine})
+            let header = [`Name`,`Gender`,`Age`,`Total Purchase`,`Purchase History`]
+            let arrData = [] 
+            patient.forEach(el => {
+                let arr = [el.name,el.gender,el.age,el.Medicines.length, el.Medicines.length === 0 ? `Belum Membeli Obat` : el.Medicines.map(el=>el.name).join("\n") ]
+                arrData.push(arr)
+            })
+            console.log(arrData);
+            pdfkit(`Patient`,header,arrData)
+            res.redirect(`/doctor/statistic`)
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+
+    static async pdfMedicine(req,res){
+        try {
+            let medicine =  await Medicine.findAll({include:Patient})
+            let header = [`Name`,`Type`,`Price`,`Total Purchase`]
+            let arrData = [] 
+            medicine.forEach(el => {
+                let arr = [el.name,el.type,rupiah(el.price),el.Patients.length]
+                arrData.push(arr)
+            })
+            console.log(arrData);
+            pdfkit(`Medicine`,header,arrData)
+            res.redirect(`/doctor/statistic`)
         } catch (error) {
             res.send(error)
         }

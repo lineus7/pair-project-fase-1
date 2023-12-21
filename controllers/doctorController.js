@@ -127,5 +127,14 @@ class DoctorController {
             res.send(error)
         }
     }
+
+    static async deletePost(req,res){
+        try {
+            await Chat.destroy({where :{id:req.params.ChatId}})
+            res.redirect(`/doctor/${req.params.PatientId}/chat`)
+        } catch (error) {
+            res.send(error)
+        }
+    }
 }
 module.exports = DoctorController

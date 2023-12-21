@@ -28,7 +28,7 @@ class Controller {
 
             res.redirect(`/login`)
         } catch (error) {
-            if (error.name === `SequlizeValidationError`) {
+            if (error.name === `SequelizeValidationError`) {
                 let errorArr = error.errors.map(el => el.message)
                 res.redirect(`/register/doctor?error=${errorArr}`)
             } else {
@@ -40,6 +40,7 @@ class Controller {
     static showRegisterPatient(req, res) {
         try {
             let error = req.query.error?.split(`,`)
+            // console.log(error);
             res.render(`showRegisterPatient`, { error })
         } catch (error) {
             res.send(error)
@@ -58,9 +59,9 @@ class Controller {
 
             res.redirect(`/login`)
         } catch (error) {
-            if (error.name === `SequlizeValidationError`) {
+            if (error.name === `SequelizeValidationError`) {
                 let errorArr = error.errors.map(el => el.message)
-                res.redirect(`/register/doctor?error=${errorArr}`)
+                res.redirect(`/register/patient?error=${errorArr}`)
             } else {
                 res.send(error)
             }
@@ -70,7 +71,7 @@ class Controller {
     static async showLogin(req, res) {
         try {
             let error = req.query.error
-            res.render(`showLogin`,{error})
+            res.render(`showLogin`, { error })
         } catch (error) {
             res.send(error)
         }
@@ -87,12 +88,12 @@ class Controller {
                     role: data.role
                 }
                 if (data.role === "Patient") {
-                    data = await User.findOne({where:username,include:Patient})
+                    data = await User.findOne({ where: username, include: Patient })
                     req.session.user.PatientId = data.Patient.id
                     res.redirect(`/patient`)
                 }
                 if (data.role === "Doctor") {
-                    data = await User.findOne({where:username,include:Doctor})
+                    data = await User.findOne({ where: username, include: Doctor })
                     req.session.user.DoctorId = data.Doctor.id
                     res.redirect(`/doctor`)
                 }

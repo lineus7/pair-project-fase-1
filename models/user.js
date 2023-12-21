@@ -12,34 +12,34 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      User.hasOne(models.Doctor,{foreignKey:`UserId`})
-      User.hasOne(models.Patient,{foreignKey:`UserId`})
+      User.hasOne(models.Doctor, { foreignKey: `UserId` })
+      User.hasOne(models.Patient, { foreignKey: `UserId` })
     }
   }
   User.init({
     username: {
       type: DataTypes.STRING,
-      allowNull : false,
-      validate : {
-        allowNull : {msg : `Username cannot be empty`},
-        notEmpty : {msg : `Username cannot be empty`}
+      allowNull: false,
+      validate: {
+        notNull: { msg: `Username cannot be empty` },
+        notEmpty: { msg: `Username cannot be empty` }
       }
     },
     password: {
       type: DataTypes.STRING,
-      allowNull : false,
-      validate : {
-        allowNull : {msg : `Password cannot be empty`},
-        notEmpty : {msg : `Password cannot be empty`}
+      allowNull: false,
+      validate: {
+        notNull: { msg: `Password cannot be empty` },
+        notEmpty: { msg: `Password cannot be empty` }
       }
     },
-    role:  {
+    role: {
       type: DataTypes.STRING,
-      allowNull : false
+      allowNull: false
     }
   }, {
-    hooks : {
-      beforeCreate(user,option){
+    hooks: {
+      beforeCreate(user, option) {
         let salt = bcrypt.genSaltSync(10);
         let hash = bcrypt.hashSync(user.password, salt);
         user.password = hash

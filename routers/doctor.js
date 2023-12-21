@@ -11,12 +11,13 @@ router.use((req, res, next) => {
   }
 })
 // define the home page route
-router.get('/:id', DoctorController.showListPatient)
-router.get('/:id')
-router.get('/:id')
-// define the about route
-router.get('/about', (req, res) => {
-  res.send('About birds')
-})
+router.get('/', DoctorController.showListPatient)
+router.get('/:PatientId/cancel', DoctorController.cancelPatient)
+router.get('/:PatientId/accept', DoctorController.acceptPatient)
+router.get(`/:PatientId/chat`, DoctorController.showChatFromDoctor)
+router.post(`/:PatientId/chat`, DoctorController.addChatFromDoctor)
+router.get(`/:PatientId/end`, DoctorController.endChat) 
+
+
 
 module.exports = router

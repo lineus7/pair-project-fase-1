@@ -69,7 +69,8 @@ class Controller {
 
     static async showLogin(req, res) {
         try {
-            res.render(`showLogin`)
+            let error = req.query.error
+            res.render(`showLogin`,{error})
         } catch (error) {
             res.send(error)
         }
@@ -79,16 +80,24 @@ class Controller {
         try {
             const { username, password } = req.body
             let data = await User.findOne({ where: username })
-            if (data) {
-                const isValidPassword = bcrypt.compareSync(password)
-                if (isValidPassword) {
-                    req.session.user = {
-                        id: data.id,
-                        role: data.role
-                    }
-                    if (data.role === "Patient") res.redirect(`/patient`)
-                    if (data.role === "Doctor") res.redirect(`/doctor`)
+            const isValidPassword = bcrypt.compareSync(password)
+            if (data && isValidPassword) {
+                req.session.user = {
+                    id: data.id,
+                    role: data.role
                 }
+                if (data.role === "Patient") {
+                    data = await User.findOne({where:username,include:Patient})
+                    req.session.user.PatientId = data.Patient.id
+                    res.redirect(`/patient`)
+                }
+                if (data.role === "Doctor") {
+                    data = await User.findOne({where:username,include:Doctor})
+                    req.session.user.DoctorId = data.Doctor.id
+                    res.redirect(`/doctor`)
+                }
+            } else {
+                res.redirect(`/login?error=Invalid Username/Password`)
             }
         } catch (error) {
             res.send(error)

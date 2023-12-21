@@ -11,57 +11,57 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Patient.belongsTo(models.User,{foreignKey:`UserId`})
+      Patient.belongsTo(models.User, { foreignKey: `UserId` })
     }
   }
   Patient.init({
     name: {
       type: DataTypes.STRING,
-      allowNull : false,
-      validate : {
-        allowNull : {msg : `Name cannot be empty`},
-        notEmpty : {msg : `Name cannot be empty`}
+      allowNull: false,
+      validate: {
+        notNull: { msg: `Name cannot be empty` },
+        notEmpty: { msg: `Name cannot be empty` }
       }
     },
     gender: {
       type: DataTypes.STRING,
-      allowNull : false,
-      validate : {
-        allowNull : {msg : `Gender cannot be empty`},
-        notEmpty : {msg : `Gender cannot be empty`}
+      allowNull: false,
+      validate: {
+        notNull: { msg: `Gender cannot be empty` },
+        notEmpty: { msg: `Gender cannot be empty` }
       }
     },
     age: {
       type: DataTypes.INTEGER,
-      allowNull : false,
-      validate : {
-        allowNull : {msg : `Age cannot be empty`},
-        notEmpty : {msg : `Age cannot be empty`}
+      allowNull: false,
+      validate: {
+        notNull: { msg: `Age cannot be empty` },
+        notEmpty: { msg: `Age cannot be empty` }
       }
     },
     UserId: {
       type: DataTypes.INTEGER,
-      allowNull : false,
-      validate : {
-        allowNull : {msg : `UserId cannot be empty`},
-        notEmpty : {msg : `UserId cannot be empty`}
+      allowNull: false,
+      validate: {
+        notNull: { msg: `UserId cannot be empty` },
+        notEmpty: { msg: `UserId cannot be empty` }
       }
     },
     DoctorId: DataTypes.INTEGER,
     status: {
       type: DataTypes.STRING,
-      allowNull : false,
-      validate : {
-        allowNull : {msg : `Status cannot be empty`},
-        notEmpty : {msg : `Status cannot be empty`}
+      allowNull: false,
+      validate: {
+        notNull: { msg: `Status cannot be empty` },
+        notEmpty: { msg: `Status cannot be empty` }
       }
     },
     email: {
       type: DataTypes.STRING,
-      allowNull : false,
-      validate : {
-        allowNull : {msg : `Email cannot be empty`},
-        notEmpty : {msg : `Email cannot be empty`}
+      allowNull: false,
+      validate: {
+        notNull: { msg: `Email cannot be empty` },
+        notEmpty: { msg: `Email cannot be empty` }
       }
     }
   }, {

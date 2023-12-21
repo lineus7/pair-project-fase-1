@@ -1,5 +1,5 @@
 const { Op } = require("sequelize")
-const { User, Doctor, Patient, Chat } = require(`../models`)
+const { User, Doctor, Patient, Chat, Medicine, PatientMedicine } = require(`../models`)
 const rupiah = require("../helper/formatRupiah")
 class PatientController {
     static async showListDoctor(req,res){
@@ -17,6 +17,25 @@ class PatientController {
         try {
             delete req.session.user
             res.redirect(`/login`)
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async showMedicine(req,res){
+        try {
+            const {done} = req.query
+            let data = await Medicine.findAll()
+            res.render(`listMedicine`,{data,done})
+        } catch (error) {
+            res.send(error)
+        }
+    }
+
+    static async buyMedicine(req,res){
+        try {
+            await PatientMedicine.create({MedicineId:req.params.MedicineId,PatientId:req.session.user.PatientId})
+            res.redirect(`/patient/medicine?done=Thanks for buying our medicine`)
         } catch (error) {
             res.send(error)
         }

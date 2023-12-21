@@ -13,11 +13,13 @@ router.use((req, res, next) => {
 // define the home page route
 router.get('/', DoctorController.showListPatient)
 router.get(`/logout`, DoctorController.logout)
+router.get(`/statistic`, DoctorController.showStatistic)
 router.get('/:PatientId/cancel', DoctorController.cancelPatient)
 router.get('/:PatientId/accept', DoctorController.acceptPatient)
 router.get(`/:PatientId/chat`, DoctorController.showChatFromDoctor)
 router.post(`/:PatientId/chat`, DoctorController.addChatFromDoctor)
 router.get(`/:PatientId/end`, DoctorController.endChat)
+
 
 
 

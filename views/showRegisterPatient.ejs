@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Patient</title>
+</head>
+<body style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <a href="/login"><button>Back To Login</button></a>
+    <h2>Welcome to ConsulDoc</h2>
+    <% error?.forEach(el => { %>
+        <h4 style="color: red;"> <%= el %></h4>
+    <% }) %>
+    <div>
+        <form action="/register/patient" method="post" style="display: flex; flex-direction: column; width: 300px;">
+            <label>Username</label> 
+            <input type="text" name="username">
+            <label>Password</label> 
+            <input type="password" name="password">  
+            <label>Full Name</label> 
+            <input type="text" name="name">  
+            <label>Gender</label> 
+            <div>
+                <input type="radio" name="gender" value="male" id="M"><label for="M">Male</label>
+                <input type="radio" name="gender" value="female" id="F"><label for="F">Female</label> 
+            </div>
+            <Label>Age</Label> 
+            <input type="number" min="0" name="age">  
+            <label>Email</label> 
+            <input type="text" name="email">
+            <br>
+            <input type="submit" value="Register">
+        </form>
+    </div>
+    
+</body>
+</html>

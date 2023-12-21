@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor registration</title>
+</head>
+<body style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+        <a href="/login"><button>Back To Login</button></a>
+        <h2>Welcome to ConsulDoc</h2>
+        <% error?.forEach(el => { %>
+         <h4 style="color: red;"><%= el %></h4>
+        <% }) %>
+        <form action="/register/doctor" method="post" style="display: flex; flex-direction: column; width: 300px;">
+            <label>Username</label>
+            <input type="text" name="username"> 
+            <label>Password</label>
+            <input type="password" name="password"> 
+            <label>Full Name</label>
+            <input type="text" name="name"> 
+            <label>SIP (Surat Izin Praktik)</label>
+            <input type="text" name="sip"> 
+            <label>Specialist</label>
+            <input type="text" name="specialist"> 
+            <label>Hospital</label>
+            <input type="text" name="hospital"> 
+            <label>Experience</label>
+            <input type="number" min="0" name="exp"> 
+            <label>Price</label>
+            <input type="number" min="0" name="price"> 
+            <label>Email</label>
+            <input type="text" name="email">
+            <br>
+            <input type="submit" value="Register"> 
+        </form>
+
+    
+</body>
+</html>

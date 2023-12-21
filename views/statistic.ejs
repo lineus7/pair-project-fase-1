@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+    <h2><a href="/doctor">Back</a></h2>
+
+    <h1>Tabel Statistic</h1>
+    <h2>Pasien</h2>
+    <table border="1">
+        <thead>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Age</th>
+            <th>Total Purchase</th>
+            <th>Purchase History</th>
+        </thead>
+        <tbody>
+            <% data.forEach(el => { %>
+            <tr>
+                <td><%= el.name %></td>
+                <td><%= el.gender %></td>
+                <td><%= el.age %></td>
+                <td><%= el.Medicines.length %></td>
+                <td><%= el.Medicines.map(el=>el.name).join("\n") %><% if (el.Medicines.length ===0 ) { %>
+                 Belum Membeli Obat
+                <% } %></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <a href="/doctor/pdfPatient"><button>Make Pdf</button></a>
+    <br><br>
+
+    <h2>Medicine</h2>
+    <table border="1">
+        <thead>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Price</th>
+            <th>Total Purchase</th>
+        </thead>
+        <tbody>
+            <% medicine.forEach(el => { %>
+            <tr>
+                <td><%= el.name %></td>
+                <td><%= el.type %></td>
+                <td><%= rupiah(el.price) %></td>
+                <td><%= el.Patients.length %></td>
+            </tr> 
+            <% }) %>
+        </tbody>
+    </table>
+    <a href="/doctor/pdfMedicine"><button>Make Pdf</button></a>
+
+</body>
+</html>

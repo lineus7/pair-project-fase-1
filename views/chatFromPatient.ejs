@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+    <a href="/patient/logout"><button>Logout</button></a>
+    <h2><a href="/patient/">Back</a></h2>
+    <h1>Chat Box</h1>
+    <div style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+        <% if (data.length === 0) { %>
+         <h2>Ayok Mulai Percakapan</h2>
+        <% } %>
+        <table>
+            <% data?.forEach(el => { %>
+            <tr>
+                <td><%= el.from %>      :</td>
+                <td><%= el.text %></td>
+            </tr>
+            <% }) %>
+        </table>
+        <br><br>
+        <form action="/patient/<%= doctor.id %>/chat" method="post">
+        <textarea name="text" id="" cols="30" rows="10"></textarea><br>
+        <button type="submit">Enter</button>
+        </form>
+    </div>
+</body>
+</html>

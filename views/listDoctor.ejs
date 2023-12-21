@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>List Doctor</title>
+</head>
+<body style="display: flex;flex-direction: column;justify-content: center;align-items: center;">
+    <h2><a href="/patient/logout">Logout</a></h2>
+    <h2><a href="/patient/medicine">List Medicine</a></h2>
+    <% if (patient.status === `Pending`) { %>
+        <h2>List Doctor</h2>
+        <form action="">
+            <input type="text" name="search" id="">
+            <button type="submit">Search</button>
+        </form>
+        <br>
+        <form action="">
+            <select name="filter" id="" style="width: 200px;">
+                <option value="" selected disabled>Choose...</option>
+                <option value="Penyakit Dalam">Penyakit Dalam</option>
+                <option value="Umum">Umum</option>
+            </select>
+            <button type="submit">Filter</button>
+        </form>
+        <table border="1" style="text-align: center;">
+            <thead>
+                <th>Name</th>
+                <th>Specialist</th>
+                <th>Experience(inYear)</th>
+                <th>Hospital</th>
+                <th>Price</th>
+                <th>Action</th>
+            </thead>
+            <tbody>
+                <% data.forEach(el => { %>
+                 <tr>
+                    <td><%= el.title %> <%= el.name %></td>
+                    <td><%= el.specialist %></td>
+                    <td><%= el.exp %></td>
+                    <td><%= el.hospital %></td>
+                    <td><%= rupiah(el.price) %></td>
+                    <td><a href="/patient/<%= el.id %>"><button>Start Consultation</button></a></td>
+                 </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    <% } %>
+    <% if (patient.status === `Waiting`) { %>
+     <h1>Anda sedang menunggu konfirmasi dari <% data.forEach(el => { %>
+            <% if (el.id === patient.DoctorId) { %>
+             <%= el.title+` `+el.name %>
+            <% } %>
+     <% }) %></h1>
+     <a href="/patient/<%= patient.DoctorId %>/cancel"><button>Batalkan Konsultasi</button></a>
+    <% } %>
+    <% if (patient.status === `Accepted`) { %>
+        <h1>Mulai Berdiskusi dengan Dokter Anda</h1>
+        <a href="/patient/<%= patient.DoctorId %>/cancel"><button>Batalkan Konsultasi</button></a>
+        <br>
+        <a href="/patient/<%= patient.DoctorId %>/chat"><button>Click Disini</button></a>
+    <% } %>
+</body>
+</html>

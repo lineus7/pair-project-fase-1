@@ -3,9 +3,12 @@ const router = express.Router()
 
 // middleware that is specific to this router
 router.use((req, res, next) => {
-  console.log('Time: ', Date.now())
-  next()
-})
+    if (!req.session.user.role !== "Patient"){
+      res.redirect(`/login?error=Please Login First`)
+    } else {
+      next()
+    }
+  })
 // define the home page route
 router.get('/', (req, res) => {
   res.send('Birds home page')

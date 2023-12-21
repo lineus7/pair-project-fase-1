@@ -1,5 +1,5 @@
 
-const { User, Doctor } = require(`../models`)
+const { User, Doctor, Patient } = require(`../models`)
 const bcrypt = require('bcryptjs');
 class Controller {
 
@@ -23,7 +23,7 @@ class Controller {
             let data = await User.create({ username, password, role: `Doctor` })
 
             const { name, sip, specialist, hospital, exp, price } = req.body
-            console.log(name, sip, specialist, hospital, exp, price);
+            // console.log(name, sip, specialist, hospital, exp, price);
             await Doctor.create({ name, sip, specialist, hospital, exp, price, UserId: data.id })
 
             res.redirect(`/login`)
@@ -49,11 +49,10 @@ class Controller {
     static async addPatient(req, res) {
         try {
             const { username, password } = req.body
-            // let data = await User.create({ username, password, role: `Patient` })
-
+            let data = await User.create({ username, password, role: `Patient` })
 
             const { name, gender, age, email } = req.body
-            await Doctor.create({ name, gender, age, UserId: data.id, email, status: `Pending` })
+            await Patient.create({ name, gender, age, UserId: data.id, email, status: `Pending` })
 
             res.redirect(`/login`)
         } catch (error) {
@@ -68,7 +67,8 @@ class Controller {
 
     static async showLogin(req, res) {
         try {
-            res.render(`showLogin`)
+            let error = req.query.error
+            res.render(`showLogin`,{error})
         } catch (error) {
             res.send(error)
         }
@@ -78,16 +78,24 @@ class Controller {
         try {
             const { username, password } = req.body
             let data = await User.findOne({ where: username })
-            if (data) {
-                const isValidPassword = bcrypt.compareSync(password)
-                if (isValidPassword) {
-                    req.session.user = {
-                        id: data.id,
-                        role: data.role
-                    }
-                    if (data.role === "Patient") res.redirect(`/patient`)
-                    if (data.role === "Doctor") res.redirect(`/doctor`)
+            const isValidPassword = bcrypt.compareSync(password)
+            if (data && isValidPassword) {
+                req.session.user = {
+                    id: data.id,
+                    role: data.role
                 }
+                if (data.role === "Patient") {
+                    data = await User.findOne({where:username,include:Patient})
+                    req.session.user.PatientId = data.Patient.id
+                    res.redirect(`/patient`)
+                }
+                if (data.role === "Doctor") {
+                    data = await User.findOne({where:username,include:Doctor})
+                    req.session.user.DoctorId = data.Doctor.id
+                    res.redirect(`/doctor`)
+                }
+            } else {
+                res.redirect(`/login?error=Invalid Username/Password`)
             }
         } catch (error) {
             res.send(error)

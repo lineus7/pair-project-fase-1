@@ -22,9 +22,9 @@ class Controller {
             const { username, password } = req.body
             let data = await User.create({ username, password, role: `Doctor` })
 
-            const { name, sip, specialist, hospital, exp, price } = req.body
+            const { name, sip, specialist, hospital, exp, price, email } = req.body
             // console.log(name, sip, specialist, hospital, exp, price);
-            await Doctor.create({ name, sip, specialist, hospital, exp, price, UserId: data.id })
+            await Doctor.create({ name, sip, specialist, hospital, exp, price, email, UserId: data.id })
 
             res.redirect(`/login`)
         } catch (error) {
@@ -51,8 +51,10 @@ class Controller {
             const { username, password } = req.body
             let data = await User.create({ username, password, role: `Patient` })
 
+
             const { name, gender, age, email } = req.body
             await Patient.create({ name, gender, age, UserId: data.id, email, status: `Pending` })
+            // console.log(username, password, name, gender, age, email);
 
             res.redirect(`/login`)
         } catch (error) {

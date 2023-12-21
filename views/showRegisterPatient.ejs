@@ -7,28 +7,13 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css"  rel="stylesheet" />
 </head>
-<body>
+<body style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <a href="/login"><button>Back To Login</button></a>
+    <h2>Welcome to ConsulDoc</h2>
     <% error?.forEach(el => { %>
         <h4 style="color: red;"> <%= el %></h4>
     <% }) %>
-    <!-- <div>
-        <form action="/register/patient" method="post">
-            <label>Username</label> <br>
-            <input type="text" name="username"> <br> <br>
-            <label>Password</label> <br>
-            <input type="password" name="password"> <br> <br>
-            <label>Full Name</label> <br>
-            <input type="text" name="name"> <br> <br>
-            <label>Gender</label> <br>
-            <input type="radio" name="gender" value="Male" id="M"><label for="M">Male</label>
-            <input type="radio" name="gender" value="Female" id="F"><label for="F">Female</label><br> <br>
-            <Label>Age</Label> <br>
-            <input type="number" min="0" name="age"> <br> <br>
-            <label>Email</label> <br>
-            <input type="text" name="email"> <br> <br>
-            <input type="submit" value="Register">
-        </form>
-    </div> -->
+    
     <h2 class="text-5xl mx-10 my-5 mt-5">Welcome to Consul<span style="color: brown;">Doc</span></h2>
      <% error?.forEach(el => { %>
         <h4 class="text-2xl mx-10 my-5 mt-5" style="color: red;"><%= el %></h4>

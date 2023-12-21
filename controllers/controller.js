@@ -1,4 +1,3 @@
-
 const { User, Doctor, Patient } = require(`../models`)
 const bcrypt = require('bcryptjs');
 class Controller {
@@ -80,29 +79,33 @@ class Controller {
     static async login(req, res) {
         try {
             const { username, password } = req.body
-
-            let data = await User.findOne({ where: username })
-            const isValidPassword = bcrypt.compareSync(password)
+            if (!username || !password) throw new Error(`Invalid Username/Password`)
+            let data = await User.findOne({ where: { username } })
+            const isValidPassword = bcrypt.compareSync(password, data.password)
+            // console.log(req.session);
             if (data && isValidPassword) {
                 req.session.user = {
                     id: data.id,
                     role: data.role
                 }
+                console.log(req.session);
                 if (data.role === "Patient") {
-                    data = await User.findOne({ where: username, include: Patient })
+                    data = await User.findOne({ where: { username }, include: Patient })
                     req.session.user.PatientId = data.Patient.id
+                    // console.log(req.session.u);
                     res.redirect(`/patient`)
                 }
                 if (data.role === "Doctor") {
-                    data = await User.findOne({ where: username, include: Doctor })
+                    data = await User.findOne({ where: { username }, include: Doctor })
                     req.session.user.DoctorId = data.Doctor.id
+                    console.log(req.session.user);
                     res.redirect(`/doctor`)
                 }
             } else {
                 res.redirect(`/login?error=Invalid Username/Password`)
             }
         } catch (error) {
-            res.send(error)
+            res.redirect(`/login?error=Invalid Username/Password`)
         }
     }
 

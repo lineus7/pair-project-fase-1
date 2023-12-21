@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const {User} = require(`./index`)
 const bcrypt = require('bcryptjs');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
@@ -22,7 +23,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         notNull: { msg: `Username cannot be empty` },
-        notEmpty: { msg: `Username cannot be empty` }
+        notEmpty: { msg: `Username cannot be empty` },
+        async isUnique(value) {
+          let data = await User.findOne({where:{username:value}})
+          if (data) {
+            throw new Error(`Username sudah terdaftar`);
+          }
+        }
       }
     },
     password: {

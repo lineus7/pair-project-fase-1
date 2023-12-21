@@ -5,8 +5,8 @@ const patient = require(`./patient`)
 const Controller = require('../controllers/controller')
 
 // middleware that is specific to this router
-router.use(`/doctor`,doctor)
-router.use(`/patient`,patient)
+router.use(`/doctor`, doctor)
+router.use(`/patient`, patient)
 // define the home page route
 router.get('/', Controller.showHome)
 router.get(`/login`, Controller.showLogin)

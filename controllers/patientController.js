@@ -4,8 +4,12 @@ const rupiah = require("../helper/formatRupiah")
 class PatientController {
     static async showListDoctor(req,res){
         try {
+            let {filter,search} = req.query
+            let option = {order:[[`id`,`ASC`]]}
+            if (filter) option.where = {specialist:filter}
+            if (search) option.where = {name:{[Op.iLike]: `%${search}%`}}
             let patient = await Patient.findByPk(req.session.user.PatientId)
-            let data = await Doctor.findAll({order:[[`id`,`ASC`]]})
+            let data = await Doctor.findAll(option)
             // console.log(data);
             res.render(`listDoctor`,{data,patient,rupiah})
         } catch (error) {
@@ -53,6 +57,7 @@ class PatientController {
 
     static async cancelConsultation(req,res){
         try {
+            await Chat.create({text:`Percakapan berakhir pada ${new Date()}`,DoctorId:req.params.DoctorId,PatientId:req.session.user.PatientId, from:`System`})
             await Patient.update({DoctorId:null,status:"Pending"}, {where:{id:req.session.user.PatientId}})
             res.redirect(`/patient`)
         } catch (error) {

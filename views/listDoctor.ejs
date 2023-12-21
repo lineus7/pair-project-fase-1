@@ -10,6 +10,19 @@
     <h2><a href="/patient/medicine">List Medicine</a></h2>
     <% if (patient.status === `Pending`) { %>
         <h2>List Doctor</h2>
+        <form action="">
+            <input type="text" name="search" id="">
+            <button type="submit">Search</button>
+        </form>
+        <br>
+        <form action="">
+            <select name="filter" id="" style="width: 200px;">
+                <option value="" selected disabled>Choose...</option>
+                <option value="Penyakit Dalam">Penyakit Dalam</option>
+                <option value="Umum">Umum</option>
+            </select>
+            <button type="submit">Filter</button>
+        </form>
         <table border="1" style="text-align: center;">
             <thead>
                 <th>Name</th>

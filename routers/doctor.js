@@ -14,6 +14,8 @@ router.use((req, res, next) => {
 router.get('/', DoctorController.showListPatient)
 router.get(`/logout`, DoctorController.logout)
 router.get(`/statistic`, DoctorController.showStatistic)
+router.get(`/pdfPatient`, DoctorController.pdfPatient)
+router.get(`/pdfMedicine`, DoctorController.pdfMedicine)
 router.get('/:PatientId/cancel', DoctorController.cancelPatient)
 router.get('/:PatientId/accept', DoctorController.acceptPatient)
 router.get(`/:PatientId/chat`, DoctorController.showChatFromDoctor)

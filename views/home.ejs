@@ -1,20 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
+  <!-- Tambahkan link ke CDN Tailwind CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
-<body>
-    <h2>Welcome to ConsulDoc</h2>
-    <h4>What can i do for you?</h4>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eveniet dolorem deleniti! Earum, nulla inventore. Fugiat animi facere dolorem minima. Voluptates voluptatibus enim animi deserunt debitis cum id fugit quos.
-    Inventore repudiandae obcaecati aliquid nemo! Soluta dolore molestiae quas ut mollitia sunt facilis officia atque culpa, dignissimos minima distinctio assumenda veniam maiores error reiciendis repellat labore exercitationem repellendus inventore excepturi.
-    Sint asperiores minus explicabo soluta. Unde nisi ipsam adipisci esse voluptatibus labore. Facilis, et facere. Aperiam ullam porro qui eum, reprehenderit enim perspiciatis veritatis tenetur molestiae, possimus laborum facilis sed!
-    Commodi voluptate repellat nulla nesciunt sit quibusdam ipsam culpa dolore consectetur? Impedit aperiam beatae molestiae tempora provident, dolore alias dolorum obcaecati deserunt aspernatur animi porro odit error rem accusamus cumque.
-    Culpa ea, fugit dolor ex rerum soluta labore hic repellat dolorum accusamus officia officiis debitis eaque neque dicta repellendus molestiae corporis voluptas velit laborum! Aperiam enim magni in voluptate saepe.
-    Illo ratione dicta nesciunt, voluptate possimus eos accusantium vitae modi. </p> <br>
-    <a href="/login"><button>Log-In</button></a>
-    
+<body class=" bg-gradient-to-r from-green-300 to-green-500 font-sans leading-normal tracking-normal">
+
+  <!-- Navbar -->
+  <nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6">
+    <div class="flex items-center flex-shrink-0 text-white mr-6">
+      <span class="font-semibold text-xl tracking-tight">ConsulDoc</span>
+    </div>
+    <div class="block lg:hidden">
+      <button id="nav-toggle" class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+        <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Image background -->
+  <!-- <img src="https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg?w=740&t=st=1703161441~exp=1703162041~hmac=309d079a6aa79c617e3872931dcf1597a11ec53bf64cad666b8102ba3fb6e689" class="rounded mx-auto d-block" style="width: 20rem; margin-top: 3rem;" alt="doctor"> -->
+  <!-- Content -->
+  <div class="container mx-auto mt-10">
+    <h2 class="text-4xl font-bold text-gray-800 mb-4">Welcome to ConsulDoc</h2>
+    <h4 class="text-xl text-gray-600 mb-6">What can I do for you?</h4>
+    <p class="text-gray-700 leading-relaxed">
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores eveniet dolorem deleniti! Earum, nulla inventore. Fugiat animi facere dolorem minima. Voluptates voluptatibus enim animi deserunt debitis cum id fugit quos.
+      Inventore repudiandae obcaecati aliquid nemo! Soluta dolore molestiae quas ut mollitia sunt facilis officia atque culpa, dignissimos minima distinctio assumenda veniam maiores error reiciendis repellat labore exercitationem repellendus inventore excepturi.
+      Sint asperiores minus explicabo soluta. Unde nisi ipsam adipisci esse voluptatibus labore. Facilis, et facere. Aperiam ullam porro qui eum, reprehenderit enim perspiciatis veritatis tenetur molestiae, possimus laborum facilis sed!
+      Commodi voluptate repellat nulla nesciunt sit quibusdam ipsam culpa dolore consectetur? Impedit aperiam beatae molestiae tempora provident, dolore alias dolorum obcaecati deserunt aspernatur animi porro odit error rem accusamus cumque.
+      Culpa ea, fugit dolor ex rerum soluta labore hic repellat dolorum accusamus officia officiis debitis eaque neque dicta repellendus molestiae corporis voluptas velit laborum! Aperiam enim magni in voluptate saepe.
+      Illo ratione dicta nesciunt, voluptate possimus eos accusantium vitae modi.
+    </p>
+    <a href="/login" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded inline-block">Log-In</a>
+  </div>
+
+  <!-- Script untuk toggle navbar di layar kecil -->
+  <script>
+    document.getElementById('nav-toggle').addEventListener('click', function () {
+      var nav = document.getElementById('nav-content');
+      if (nav.className === 'hidden') {
+        nav.className = '';
+      } else {
+        nav.className = 'hidden';
+      }
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
 </body>
 </html>

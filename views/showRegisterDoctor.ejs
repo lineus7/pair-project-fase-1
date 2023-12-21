@@ -4,36 +4,71 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dctor registration</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.15/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.css"  rel="stylesheet" />
 </head>
 <body>
-    <div>
-        <h2>Welcome to ConsulDOc</h2>
-        <% error?.forEach(el => { %>
-         <h4 style="color: red;"><%= el %></h4>
-        <% }) %>
-        <form action="/register/doctor" method="post">
-            <label>Username</label> <br>
-            <input type="text" name="username"> <br> <br>
-            <label>Password</label> <br>
-            <input type="password" name="password"> <br> <br>
-            <label>Full Name</label> <br>
-            <input type="text" name="name"> <br> <br>
-            <label>SIP (Surat Izin Praktik)</label> <br>
-            <input type="text" name="sip"> <br> <br>
-            <label>Specialist</label> <br>
-            <input type="text" name="specialist"> <br> <br>
-            <label>Hospital</label> <br>
-            <input type="text" name="hospital"> <br> <br>
-            <label>Experience</label> <br>
-            <input type="number" min="0" name="exp"> <br> <br>
-            <label>Price</label> <br>
-            <input type="number" min="0" name="price"> <br> <br>
-            <label>Email</label> <br>
-            <input type="text" name="email"><br> <br>
-            <input type="submit" value="register"> 
-        </form>
-    </div>
+     <h2 class="text-5xl mx-10 my-5 mt-5">Welcome to Consul<span style="color: brown;">Doc</span></h2>
+     <% error?.forEach(el => { %>
+        <h4 class="text-2xl mx-10 my-5 mt-5" style="color: red;"><%= el %></h4>
+       <% }) %>
+         <form action="/register/doctor" method="post" class="mx-10 my-5">
+             <div class="grid gap-6 mb-6 md:grid-cols-2">
+                 <div>
+                     <label for="full-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Full Name</label>
+                     <input type="text" id="full-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Full Name" name="name">
+                 </div>
+                 <div>
+                     <label for="sip" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">SIP (Surat Izin Praktik)</label>
+                     <input type="text" id="sip" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="SIP" name="sip">
+                 </div>
+                 <div>
+                     <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Specialist</label>
+                     <!-- <input type="text" id="company" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Flowbite" required> -->
+                     <select name="specialist" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option selected disabled hidden>--select your specialist--</option>
+                        <option value="Penyakit Dalam">Penyakit Dalam</option>
+                        <option value="Umum">Umum</option>
+                    </select>
+                 </div>  
 
-    
+                 <div>
+                     <label for="hospital" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Hospital</label>
+                     <input type="text" id="hospital" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Hospital Name" name="hospital">
+                 </div>
+                 <div>
+                     <label for="experience" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Work of Experience</label>
+                     <input type="number" min="0" id="experience" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="exp">
+                 </div>
+                 <div>
+                     <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Worth</label>
+                     <input type="number" min="0" id="experience" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" name="price">
+                 </div>
+
+             </div>
+             <div class="mb-6">
+                 <label for="uname" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                 <input type="text" id="uname" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Please input your Username" name="username">
+             </div> 
+             <div class="mb-6">
+                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Email</label>
+                 <input type="text" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Please input your email" name="email">
+             </div> 
+             <div class="mb-6">
+                 <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                 <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Input your password" name="password">
+             </div> 
+             <div class="flex items-start mb-6">
+                 <div class="flex items-center h-5">
+                 <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" required>
+                 </div>
+                 <label for="remember" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a>.</label>
+             </div>
+             <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+         </form>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
+
 </body>
 </html>

@@ -80,6 +80,7 @@ class Controller {
     static async login(req, res) {
         try {
             const { username, password } = req.body
+
             let data = await User.findOne({ where: username })
             const isValidPassword = bcrypt.compareSync(password)
             if (data && isValidPassword) {
